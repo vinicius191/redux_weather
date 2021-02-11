@@ -13,7 +13,7 @@ const Message = (props) => {
         return () => {
             clearTimeout(timeId);
         }
-    }, [])
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     let message = null;
 

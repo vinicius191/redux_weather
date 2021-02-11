@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    XAxis, Tooltip, ResponsiveContainer, AreaChart, Area
+    XAxis, Tooltip, AreaChart, Area
 } from 'recharts'
 
 const Chart = (props) => {
