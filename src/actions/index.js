@@ -1,6 +1,5 @@
-import { STARTING_APP, APP_STARTED, FETCH_WEATHER } from './types';
+import { STARTING_APP, APP_STARTED, FETCH_WEATHER, FETCH_WEATHER_LOADING, FETCH_WEATHER_COMPLETED } from './types';
 import axios from 'axios';
-const FETCH_WEATHER_URL = "https://vinnie-weather-server.herokuapp.com/weather?city=";
 
 export const startingApp = () => (dispatch) => {
     dispatch({
@@ -18,25 +17,21 @@ export const appStarted = () => (dispatch) => {
 export const fetchWeather = (city) => (dispatch) => {
 
     dispatch({type: 'RESET_FETCH_WEATHER_ERROR'});
+    dispatch({type: FETCH_WEATHER_LOADING});
 
-    return axios.get(`${FETCH_WEATHER_URL}${city},au`)
+    return axios.get(`${process.env.REACT_APP_WEATHER_URL}${city},au`)
         .then(({data}) => {
+            dispatch({type: FETCH_WEATHER_COMPLETED});
             return dispatch({
                 type: FETCH_WEATHER,
                 payload: data
             })
         })
         .catch((error) => {
+            dispatch({type: FETCH_WEATHER_COMPLETED});
             return dispatch({
                 type: 'FETCH_WEATHER_ERROR',
                 payload: error.response.data.error
             })
         })
-
-    // const request = axios.get(`${FETCH_WEATHER_URL}${city},au`);
-
-    // return {
-    //     type: FETCH_WEATHER
-    //     payload: request
-    // };
 };

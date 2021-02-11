@@ -37,43 +37,28 @@ class SearchBar extends Component {
 
         this.props.fetchWeather(this.state.term);
         this.setState({term: ''});
-
-        // const requestOptions = {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify({ data: event.target[0].value })
-        // }
-        // fetch('http://localhost:4000/weather', requestOptions)
-        //     .then(response => {
-        //         if(response.ok) {
-        //             console.log('response', response);
-        //             return response;
-        //         } else {
-        //             console.log('error', response);
-        //             throw Error(response.statusText);
-        //         }
-        //     })
-        //     .then((response) => {
-        //         console.log('all ok', response)
-        //     })
-        //     .catch(error => console.log('error', error));
     }
 
     render() {
         return (
-            <form
-                className="ui fluid action left icon input"
-                onSubmit={this.onFormSubmit}
-            >
-                <input
-                    type="text"
-                    placeholder="Search a City..."
-                    value={this.state.term}
-                    onChange={this.onInputChange}
-                />
-                <i className="search icon"></i>
-                <button className="ui button" type="submit">Search</button>
-            </form>
+            <div className="ui attached message">
+                <div className="center aligned ui small" style={{textAlign: "center", marginBottom: "20px"}}>
+                    Working only with cities from Australia <i className="au flag" style={{paddingLeft: "2px"}}></i>at the moment 😀
+                </div>
+                <form
+                    className="ui fluid action left icon input"
+                    onSubmit={this.onFormSubmit}
+                >
+                    <input
+                        type="text"
+                        placeholder="Search a City..."
+                        value={this.state.term}
+                        onChange={this.onInputChange}
+                    />
+                    <i className="search icon"></i>
+                    <button className="ui button" type="submit">Search</button>
+                </form>
+            </div>
         );
     }
 }

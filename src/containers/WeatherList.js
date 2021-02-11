@@ -42,7 +42,7 @@ class WeatherList extends Component {
 
         return (
             <tr key={name} className="center aligned">
-                <td>
+                <td className="center aligned">
                     {/* <h4>{name}</h4> */}
                     <Map lat={lat} lon={lon} width={200} height={180} zoom={12} />
                 </td>
@@ -89,6 +89,9 @@ class WeatherList extends Component {
                     (this.props.errors) ? this.showError() : null
                 }
 
+                <div className={`ui ${this.props.loader.isLoading ? 'active' : ''} inverted dimmer`}>
+                    <div className="ui text loader">Loading...</div>
+                </div>
                 <table className="ui very basic selectable padded small table weather_list">
                     <thead>
                         <tr>
@@ -110,8 +113,8 @@ class WeatherList extends Component {
     }
 }
 
-function mapStateToProps({ weather, errors }) {
-    return { weather, errors }; // Identical to { weather: weather }
+function mapStateToProps({ weather, errors, loader }) {
+    return { weather, errors, loader }; // Identical to { weather: weather }
 };
 
 export default connect(mapStateToProps)(WeatherList);

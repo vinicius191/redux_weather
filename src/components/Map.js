@@ -16,6 +16,7 @@ export const Map = (props) => {
             {...viewPort}
             onViewportChange={setViewPort}
             mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
+            style={{margin:"0 auto"}}
         />
     )
 }
