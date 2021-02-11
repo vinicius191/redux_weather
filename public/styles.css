@@ -1,0 +1,21 @@
+body .ui.container {
+    padding: 3rem 0;
+}
+
+.ui.padded.table td, .ui.padded.table th {
+    padding-left: 1em !important;
+    padding-right: 1em !important;
+}
+
+.weather_list {
+    margin-top: 5rem !important;
+}
+
+.ui.message.message_component {
+    margin-top: 50px;
+}
+
+svg {
+    width: 200px;
+    height: 160px;
+}
