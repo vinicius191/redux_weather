@@ -15,7 +15,7 @@ export const appStarted = () => (dispatch) => {
 };
 
 export const fetchWeather = (city) => (dispatch) => {
-
+    
     dispatch({type: 'RESET_FETCH_WEATHER_ERROR'});
     dispatch({type: FETCH_WEATHER_LOADING});
 
@@ -35,3 +35,39 @@ export const fetchWeather = (city) => (dispatch) => {
             })
         })
 };
+
+
+export const newSimpleFetchWeather = (city) => (dispatch) => {
+
+    dispatch({type: 'RESET_FETCH_WEATHER_ERROR'});
+    dispatch({type: FETCH_WEATHER_LOADING});
+
+    // NEW
+    // TODO: Add api endpoint to .env file
+    const options = {
+        params: {
+          q: city,
+          days: '3'
+        },
+        headers: {
+          'X-RapidAPI-Key': `${process.env.REACT_APP_RAPIDAPI_WEATHER_KEY}`,
+          'X-RapidAPI-Host': `${process.env.REACT_APP_RAPIDAPI_WEATHER_HOST}`
+        }
+    };
+
+    return axios.get(`${process.env.REACT_APP_RAPIDAPI_WEATHER_URL}`, options)
+        .then(({data}) => {
+            dispatch({type: FETCH_WEATHER_COMPLETED});
+            return dispatch({
+                type: FETCH_WEATHER,
+                payload: data
+            })
+        })
+        .catch((error) => {
+            dispatch({type: FETCH_WEATHER_COMPLETED});
+            return dispatch({
+                type: 'FETCH_WEATHER_ERROR',
+                payload: error.response.data.error
+            })
+        })
+}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchWeather } from '../actions/index';
+import { fetchWeather, newSimpleFetchWeather } from '../actions/index';
 import _ from 'lodash';
 
 class SearchBar extends Component {
@@ -27,7 +27,7 @@ class SearchBar extends Component {
         }
 
         let exists = _.find(this.props.weather, (item) => {
-            return item.city.name.trim().toLowerCase() === this.state.term.trim().toLocaleLowerCase()
+            return item.location.name.trim().toLowerCase() === this.state.term.trim().toLocaleLowerCase()
         });
 
         if(exists) {
@@ -35,16 +35,17 @@ class SearchBar extends Component {
             return
         }
 
-        this.props.fetchWeather(this.state.term);
+        // this.props.fetchWeather(this.state.term);
+        this.props.newSimpleFetchWeather(this.state.term);
         this.setState({term: ''});
     }
 
     render() {
         return (
             <div className="ui attached message">
-                <div className="center aligned ui small" style={{textAlign: "center", marginBottom: "20px"}}>
+                {/* <div className="center aligned ui small" style={{textAlign: "center", marginBottom: "20px"}}>
                     Working only with cities from Australia <i className="au flag" style={{paddingLeft: "2px"}}></i>at the moment 😀
-                </div>
+                </div> */}
                 <form
                     className="ui fluid action left icon input"
                     onSubmit={this.onFormSubmit}
@@ -64,7 +65,7 @@ class SearchBar extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ fetchWeather }, dispatch);
+    return bindActionCreators({ fetchWeather, newSimpleFetchWeather }, dispatch);
 }
 
 function mapStateToProps({ weather }) {
